@@ -3,6 +3,7 @@ import inputs from "../Constants/inputs";
 import ContactsList from "./ContactsList";
 
 function Contacts() {
+  const [alert, setAlert] = useState("");
   const [contacts, setContacts] = useState([]);
   const [contact, setContact] = useState({
     name: "",
@@ -19,6 +20,17 @@ function Contacts() {
   };
 
   const addHandler = () => {
+    if (
+      !contact.name ||
+      !contact.lastName ||
+      !contact.email ||
+      !contact.phone
+    ) {
+      setAlert("Please enter valid data!");
+      return;
+    }
+
+    setAlert("");
     setContacts((contacts) => [...contacts, contact]);
 
     setContact({
@@ -44,7 +56,8 @@ function Contacts() {
         ))}
         <button onClick={addHandler}>Add Contact</button>
       </div>
-      <ContactsList contacts={contacts}/>
+      <div>{alert && <p>{alert}</p>}</div>
+      <ContactsList contacts={contacts} />
     </div>
   );
 }
