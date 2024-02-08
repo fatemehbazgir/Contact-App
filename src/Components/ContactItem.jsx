@@ -1,10 +1,13 @@
+import styles from "./ContactItem.module.css"
+
+//Create items for contacts
 function ContactItem({
   data: { id, name, lastName, email, phone },
   deleteHandler,
 }) {
   return (
     <div>
-      <li>
+      <li className={styles.item}>
         <p>
           {name}
           {lastName}

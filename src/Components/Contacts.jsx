@@ -2,6 +2,7 @@ import { useState } from "react";
 import inputs from "../Constants/inputs";
 import ContactsList from "./ContactsList";
 import { v4 } from "uuid";
+import styles from "./Contacts.module.css";
 
 function Contacts() {
   const [alert, setAlert] = useState("");
@@ -14,6 +15,7 @@ function Contacts() {
     phone: "",
   });
 
+  //event for inputs
   const changeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -21,6 +23,7 @@ function Contacts() {
     setContact((contact) => ({ ...contact, [name]: value }));
   };
 
+  //Add a new contact
   const addHandler = () => {
     if (
       !contact.name ||
@@ -33,6 +36,8 @@ function Contacts() {
     }
 
     setAlert("");
+
+    // Creating unique IDs for each contact
     const newContact = { ...contact, id: v4() };
     setContacts((contacts) => [...contacts, newContact]);
 
@@ -44,14 +49,15 @@ function Contacts() {
     });
   };
 
+  //Ability to delete any contact
   const deleteHandler = (id) => {
     const newContacts = contacts.filter((contact) => contact.id !== id);
-    setContacts(newContacts)
+    setContacts(newContacts);
   };
 
   return (
-    <div>
-      <div>
+    <div className={styles.container}>
+      <div className={styles.form}>
         {inputs.map((input, index) => (
           <input
             type={input.type}
@@ -64,7 +70,7 @@ function Contacts() {
         ))}
         <button onClick={addHandler}>Add Contact</button>
       </div>
-      <div>{alert && <p>{alert}</p>}</div>
+      <div className={styles.alert}>{alert && <p>{alert}</p>}</div>
       <ContactsList contacts={contacts} deleteHandler={deleteHandler} />
     </div>
   );
