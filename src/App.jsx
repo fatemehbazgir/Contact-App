@@ -1,3 +1,4 @@
+import Contacts from "./Components/Contacts"
 import Header from "./Components/Header"
 
 function App() {
@@ -5,6 +6,7 @@ function App() {
   return (
     <>
     <Header/>
+    <Contacts/>
     </>
   )
 }
